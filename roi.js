@@ -18,14 +18,16 @@ var ROIViz = function(selector, data, images, options) {
     var url = $el.parent().find('.permalink').find('a').attr('href');
     r = request.get(url + '/data/timeseries/' + 0, function(res) {
             if((res.body.data || []).length) {
-                console.log(res.body.data)
+                var initialLength = res.body.data.length
+            } else {
+                var initialLength = 1000
             }
         });
 
     var ScatterPlot = require('../viz/scatter');
     var scatter = new ScatterPlot(selector + ' #scatter-plot', data, null, {width: $(selector).width(), height: Math.min(500, $(selector).width * 0.6)});
     var LineChart = require('../viz/line');
-    var line = new LineChart(selector + ' #line-chart', Array.apply(null, new Array(1000)).map(Number.prototype.valueOf,0), null, {width: $(selector).width(), height: 300});
+    var line = new LineChart(selector + ' #line-chart', Array.apply(null, new Array(initialLength)).map(Number.prototype.valueOf,0), null, {width: $(selector).width(), height: 300});
 
 
     var r;
