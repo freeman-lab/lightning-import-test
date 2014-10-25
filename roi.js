@@ -15,9 +15,10 @@ var ROIViz = function(selector, data, images, options) {
     }
 
     // get one sample time series to set the axis bounds
-    r = request.get(url + '/data/timeseries/' + d.i, function(res) {
+    var url = $el.parent().find('.permalink').find('a').attr('href');
+    r = request.get(url + '/data/timeseries/' + 0, function(res) {
             if((res.body.data || []).length) {
-                line.updateData(res.body.data);
+                console.log(res.body.data)
             }
         });
 
